@@ -1,13 +1,16 @@
-import React from "react";
-import { Typewriter } from "@components";
+import React from 'react';
+import { Typewriter } from '@components';
+import './styles.css';
 
 export default (() => {
   return (
-    <div>
-      <h1>Home</h1>
-      <p>Welcome to the Home page!</p>
-
-      <Typewriter text="This will be set by settings" delay={600} />
+    <div className="home-container">
+      <img
+        className="profile-picture"
+        src="/assets/grishasheadshot.png"
+        alt="SVG picture of Gregory Levine-Rozenvayn"
+      />
+      <Typewriter />
     </div>
   );
 }) as React.FC;

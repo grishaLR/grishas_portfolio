@@ -20,12 +20,10 @@ export default (() => {
   };
   const allTeams = data?.teams;
 
-  const allPlayers: Player[] = data?.elements.map((player: Player) => {
-    return {
-      ...player,
-      team: teamName(player, allTeams),
-    };
-  });
+  const allPlayers: Player[] = data?.elements.map((player: Player) => ({
+    ...player,
+    team: teamName(player, allTeams),
+  }));
 
   useEffect(() => {
     if (data) {
@@ -35,13 +33,12 @@ export default (() => {
 
   const handleFilterChange = (filters: any) => {
     setFilteredRows(
-      allPlayers?.filter((player: Player) => {
-        return (
+      allPlayers?.filter(
+        (player: Player) =>
           (filters.name === '' ||
             player.web_name.toLowerCase().includes(filters.name.toLowerCase())) &&
           (filters.team === '' || player.team === filters.team)
-        );
-      })
+      )
     );
   };
 

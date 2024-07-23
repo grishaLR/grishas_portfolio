@@ -2,9 +2,13 @@ import { configureStore } from '@reduxjs/toolkit';
 import { setupListeners } from '@reduxjs/toolkit/query';
 import { fplApi } from '../api/fplApi';
 import { migraineApi } from '../api/migraineApi';
+import migraineFormReducer from '../slices/migraineSlice';
+import typewriterReducer from '../slices/typewriterSlice';
 
 const store = configureStore({
   reducer: {
+    typewriter: typewriterReducer,
+    migraineForm: migraineFormReducer,
     [fplApi.reducerPath]: fplApi.reducer,
     [migraineApi.reducerPath]: migraineApi.reducer,
   },

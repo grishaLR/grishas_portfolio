@@ -4,6 +4,7 @@ import { ThemeProvider } from '@mui/material/styles';
 import { Navigation } from '@components';
 import Routes from './Routes';
 import theme from './theme/theme';
+import CssBaseline from '@mui/material/CssBaseline';
 import './App.css';
 
 export default (() => {
@@ -15,6 +16,7 @@ export default (() => {
 
   return (
     <ThemeProvider theme={theme}>
+      <CssBaseline />
       <Router>
         <div className="app-container">
           <Navigation isOpen={isNavOpen} toggleOpen={handleNavToggle} />

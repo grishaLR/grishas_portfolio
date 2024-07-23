@@ -1,36 +1,40 @@
-import React, { useState, useEffect } from "react";
-import { playSound } from "@utils";
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/store/store';
 
-export interface TypewriterProps {
-  text: string;
-  delay: number;
-}
+import { playSound } from '@utils';
+import './styles.css';
 
-export default (({ text, delay }) => {
-  const [currentText, setCurrentText] = useState<string>("");
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
+export interface TypewriterProps {}
 
-  playSound("www.soundjay.com/communication/sounds/typewriter-1.ogg");
+export default (() => {
+  const currentText = useSelector((state: RootState) => state.typewriter.currentText);
+  const delay = useSelector((state: RootState) => state.typewriter.delay);
+  const [displayedText, setDisplayedText] = React.useState<string>('');
+
+  useEffect(() => {
+    playSound('https://www.soundjay.com/communication/sounds/typewriter-1.ogg');
+  }, []);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;
-
-    if (currentIndex < text.length) {
+    if (displayedText.length < currentText.length) {
       timeout = setTimeout(() => {
-        setCurrentText((prevText) => prevText + text[currentIndex]);
-        setCurrentIndex((prevIndex) => prevIndex + 1);
+        setDisplayedText(currentText.slice(0, displayedText.length + 1));
       }, delay);
     }
-
     return () => clearTimeout(timeout);
-  }, [currentIndex, delay, text]);
+  }, [displayedText, currentText, delay]);
 
   return (
-    <ul>
-      {Array.from(currentText).map((letter, index) => {
-        // index okay for key as we only render this list once
-        return <li key={`${letter}_${index}`}>{letter}</li>;
-      })}
-    </ul>
+    <div className="typewriter-container">
+      <div className="typewriter-text">
+        {Array.from(displayedText).map((letter, index) => (
+          <span key={`${letter}_${index}`} className="typewriter-letter">
+            {letter === ' ' ? '\u00A0' : letter}
+          </span>
+        ))}
+      </div>
+    </div>
   );
 }) as React.FC<TypewriterProps>;

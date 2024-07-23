@@ -12,7 +12,19 @@ export const getAllMigraines = async (req: Request, res: Response) => {
 
 export const addMigraine = async (req: Request, res: Response) => {
   try {
-    const newMigraine = new Migraine(req.body);
+    const { name, date_started, date_ended, type } = req.body;
+
+    if (!name || !date_started || !type) {
+      return res.status(400).json({ message: 'Name, start date, and type are required.' });
+    }
+
+    const newMigraine = new Migraine({
+      name,
+      date_started,
+      date_ended: date_ended || undefined,
+      type,
+    });
+
     const savedMigraine = await newMigraine.save();
     res.status(201).json(savedMigraine);
   } catch (error) {

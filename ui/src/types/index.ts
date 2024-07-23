@@ -34,3 +34,9 @@ export interface Team {
   name: string;
   id: number;
 }
+
+export interface ValidationRule {
+  value: string | number;
+  rule: (value: string | number) => boolean;
+  message: string;
+}

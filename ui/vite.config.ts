@@ -7,6 +7,9 @@ import { compilerOptions } from './tsconfig.json';
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  build: {
+    outDir: 'dist',
+  },
   optimizeDeps: {
     include: ['@mui/material', '@mui/x-date-pickers', 'date-fns'],
   },

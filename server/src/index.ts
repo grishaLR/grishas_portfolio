@@ -3,6 +3,7 @@ import mongoose from 'mongoose';
 import axios from 'axios';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import path from 'path';
 import migraineRoutes from './routes/migraineRoutes';
 import migraineTypeRoutes from './routes/migraineTypeRoutes';
 import fplApiRoutes from './routes/fplApiRoutes';
@@ -33,6 +34,7 @@ mongoose
   .catch((err) => {
     console.error('MongoDB connection error:', err);
   });
+
 // Routes
 app.use('/migraines', migraineRoutes);
 app.use('/migraine-types', migraineTypeRoutes);
@@ -44,6 +46,14 @@ app.get('/api/fpl', async (req, res) => {
   } catch (error) {
     res.status(500).send('Error fetching data from Fantasy Premier League API');
   }
+});
+
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, '../../ui/public')));
+
+// For all GET requests, send back index.html
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname, '../../ui/dist', 'index.html'));
 });
 
 app.listen(PORT, () => {

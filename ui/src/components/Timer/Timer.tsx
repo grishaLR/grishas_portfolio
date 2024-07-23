@@ -1,5 +1,6 @@
-import React, { useState, useEffect, useRef } from "react";
-import { playSound } from "@utils";
+import React, { useState, useEffect, useRef } from 'react';
+import { playSound } from '@utils';
+import { Box, Button, TextField, Typography } from '@mui/material';
 
 export interface TimerProps {}
 
@@ -13,9 +14,7 @@ export default (() => {
       timerRef.current = setTimeout(() => setTime(time - 1), 1000);
     } else if (time === 0 && isRunning) {
       setIsRunning(false);
-      playSound(
-        "https://www.soundjay.com/mechanical/sounds/smoke-detector-1.mp3",
-      );
+      playSound('https://www.soundjay.com/mechanical/sounds/smoke-detector-1.mp3');
     }
 
     return () => {
@@ -51,26 +50,27 @@ export default (() => {
   };
 
   return (
-    <div>
-      <h2>Countdown Timer</h2>
-      <input
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
+      <Typography variant="h4">Countdown Timer</Typography>
+      <TextField
         type="number"
         value={time}
         onChange={handleChange}
         disabled={isRunning}
+        label="Set Time (seconds)"
       />
-      <div>
-        <button onClick={handleStart} disabled={isRunning || time <= 0}>
+      <Box sx={{ display: 'flex', gap: 2 }}>
+        <Button variant="contained" onClick={handleStart} disabled={isRunning || time <= 0}>
           Start
-        </button>
-        <button onClick={handleStop} disabled={!isRunning}>
+        </Button>
+        <Button variant="contained" onClick={handleStop} disabled={!isRunning}>
           Stop
-        </button>
-        <button onClick={handleReset}>Reset</button>
-      </div>
-      <div>
-        <h3>{time} seconds remaining</h3>
-      </div>
-    </div>
+        </Button>
+        <Button variant="contained" onClick={handleReset}>
+          Reset
+        </Button>
+      </Box>
+      <Typography variant="h6">{time} seconds remaining</Typography>
+    </Box>
   );
 }) as React.FC<TimerProps>;

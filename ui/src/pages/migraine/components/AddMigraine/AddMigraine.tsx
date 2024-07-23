@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   TextField,
   Button,
@@ -13,12 +13,21 @@ import {
   useAddMigraineMutation,
   useGetMigraineTypesQuery,
 } from '../../../../redux/api/migraineApi';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../../../redux/store/store';
+import {
+  setName,
+  setDateStarted,
+  setDateEnded,
+  setMigraineType,
+  resetForm,
+} from '../../../../redux/slices/migraineSlice';
 
 export default (() => {
-  const [name, setName] = useState('');
-  const [dateStarted, setDateStarted] = useState('');
-  const [dateEnded, setDateEnded] = useState('');
-  const [migraineType, setMigraineType] = useState('');
+  const dispatch = useDispatch();
+  const { name, dateStarted, dateEnded, migraineType } = useSelector(
+    (state: RootState) => state.migraineForm
+  );
   const {
     data: migraineTypes = [],
     error: typesError,
@@ -35,10 +44,7 @@ export default (() => {
           date_ended: dateEnded,
           type: migraineType,
         });
-        setName('');
-        setDateStarted('');
-        setDateEnded('');
-        setMigraineType('');
+        dispatch(resetForm());
       } catch (error) {
         console.error('Failed to add migraine:', error);
       }
@@ -49,17 +55,21 @@ export default (() => {
   if (typesError) return <div>Error loading migraine types</div>;
 
   const handleMigraineTypeChange = (event: SelectChangeEvent<string>) => {
-    setMigraineType(event.target.value);
+    dispatch(setMigraineType(event.target.value));
   };
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-      <TextField label="Migraine Name" value={name} onChange={(e) => setName(e.target.value)} />
+      <TextField
+        label="Migraine Name"
+        value={name}
+        onChange={(e) => dispatch(setName(e.target.value))}
+      />
       <TextField
         label="Date Started"
         type="date"
         value={dateStarted}
-        onChange={(e) => setDateStarted(e.target.value)}
+        onChange={(e) => dispatch(setDateStarted(e.target.value))}
         InputLabelProps={{
           shrink: true,
         }}
@@ -68,7 +78,7 @@ export default (() => {
         label="Date Ended"
         type="date"
         value={dateEnded}
-        onChange={(e) => setDateEnded(e.target.value)}
+        onChange={(e) => dispatch(setDateEnded(e.target.value))}
         InputLabelProps={{
           shrink: true,
         }}
