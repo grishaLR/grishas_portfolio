@@ -1,0 +1,115 @@
+.navigation {
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 50px;
+  height: 100vh;
+  border-right: 1px solid #54e49a;
+  transition: width 0.3s ease;
+  background: linear-gradient(45deg, #54e49a, #7f46c9);
+  overflow-y: auto; /* Ensure navigation content can scroll */
+}
+
+.navigation.open {
+  width: 160px;
+}
+
+.navigation-item {
+  display: flex;
+  align-items: center;
+  padding: 6px 4px;
+}
+
+.navigation-item button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  color: #94c6d4;
+}
+
+.navigation-item button span {
+  margin-left: 10px;
+  color: #94c6d4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navigation-item .icon {
+  color: #7f46c9;
+}
+
+.navigation-item button:hover .icon,
+.navigation-item button:focus .icon {
+  color: #5e15dc;
+}
+
+.navigation-top {
+  display: flex;
+  flex-direction: column;
+  padding-left: 8px;
+}
+
+.navigation-bottom {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  padding-left: 8px;
+}
+
+.navigation-bottom .navigation-item button span {
+  margin-left: 10px;
+  color: #810ee7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navigation-bottom .navigation-item button {
+  display: flex;
+  align-items: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  color: #810ee7;
+}
+
+.navigation-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+}
+
+.navigation-item .icon {
+  color: #7f46c9; /* Default icon color */
+}
+
+.navigation-link:hover .icon,
+.navigation-link:focus .icon {
+  color: #5e15dc; /* Icon color on hover/focus for better visibility */
+}
+
+.navigation-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.main-content {
+  margin-left: 50px; /* Initial margin to match the collapsed width */
+  padding: 20px;
+  transition: margin-left 0.3s ease;
+}
+
+.main-content.open {
+  margin-left: 160px; /* Expanded margin to match the expanded width */
+}

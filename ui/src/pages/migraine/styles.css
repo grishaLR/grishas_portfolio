@@ -1,0 +1,32 @@
+.migraine-content {
+  display: flex;
+  flex-direction: column;
+  justify-self: center;
+  align-self: center;
+  width: 100%;
+  padding: 12px;
+}
+
+.brain {
+  justify-self: center;
+  width: 100%;
+}
+
+.brain:hover {
+  cursor: grab;
+}
+.brain:active {
+  cursor: grabbing;
+}
+
+.brain-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 12px;
+}
+
+.migraine-type-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
