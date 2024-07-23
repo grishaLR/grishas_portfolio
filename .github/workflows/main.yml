@@ -19,7 +19,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: '14' # or the version you're using
+          node-version: '16' # Update to Node.js version 16 or later
 
       - name: Install dependencies
         run: npm install
@@ -28,10 +28,10 @@ jobs:
         run: npm test
 
       - name: Lint code
-        run: npm run lint # if you have a lint script
+        run: npm run lint
 
       - name: Build project
-        run: npm run build # if you have a build script
+        run: npm run build
 
       - name: Deploy to Vercel
         env:
