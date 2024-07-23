@@ -7,6 +7,8 @@ import migraineRoutes from './routes/migraineRoutes';
 import migraineTypeRoutes from './routes/migraineTypeRoutes';
 import fplApiRoutes from './routes/fplApiRoutes';
 
+dotenv.config();
+
 const app: Application = express();
 const PORT = process.env.PORT || 3000;
 
@@ -16,15 +18,21 @@ app.use(cors());
 
 // MongoDB connection
 const mongoUri = process.env.MONGO_URI;
+console.log('MongoDB URI:', mongoUri); // Add this line
+
+if (!mongoUri) {
+  console.error('MongoDB connection error: MONGO_URI is not defined in .env file');
+  process.exit(1);
+}
+
 mongoose
-  .connect(mongoUri || '')
+  .connect(mongoUri)
   .then(() => {
     console.log('Connected to MongoDB');
   })
   .catch((err) => {
     console.error('MongoDB connection error:', err);
   });
-
 // Routes
 app.use('/migraines', migraineRoutes);
 app.use('/migraine-types', migraineTypeRoutes);
