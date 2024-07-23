@@ -43,6 +43,7 @@
     "mongoose": "^8.5.1"
   },
   "scripts": {
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "test": "jest"
   }
 }
