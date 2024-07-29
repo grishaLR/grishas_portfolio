@@ -2,12 +2,11 @@ import { renderHook, act, waitFor } from '@testing-library/react';
 import { useDataFetching } from '@hooks';
 import { fetchFPLData } from '@services';
 
-import { DORMANT_TIMEOUT } from '@consts';
+import { DORMANT_TIMEOUT, MOCK_FPL_DATA_RESPONSE } from '@consts';
 import { RequestStatus } from '@enums';
 
 jest.mock('@services', () => ({
-  fetchFlag: jest.fn(),
-  fetchInitialHtml: jest.fn(),
+  fetchFPLData: jest.fn(),
 }));
 
 describe('useDataFetching', () => {
@@ -16,7 +15,7 @@ describe('useDataFetching', () => {
   });
 
   test('should set request status to PENDING initially', async () => {
-    (fetchFPLData as jest.Mock).mockResolvedValue('<html></html>');
+    (fetchFPLData as jest.Mock).mockResolvedValue({});
 
     const { result } = renderHook(() => useDataFetching());
 
@@ -29,13 +28,13 @@ describe('useDataFetching', () => {
   });
 
   test('should set request status to SUCCESS and update content on successful fetch', async () => {
-    (fetchFPLData as jest.Mock).mockResolvedValue([]);
+    (fetchFPLData as jest.Mock).mockResolvedValue(MOCK_FPL_DATA_RESPONSE);
 
     const { result } = renderHook(() => useDataFetching());
 
     await waitFor(() => expect(result.current.requestStatus).toBe(RequestStatus.SUCCESS));
 
-    expect(result.current.content).toBe([]);
+    expect(result.current.content).toBe(MOCK_FPL_DATA_RESPONSE);
   });
 
   test('should set request status to ERROR on fetch failure', async () => {

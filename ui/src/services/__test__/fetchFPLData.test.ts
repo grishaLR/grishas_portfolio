@@ -1,7 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { fetchFPLData } from '@services'; // Adjust the import path
-import { BASE_URL } from '@consts'; // Adjust the import path
+import { fetchFPLData } from '@services';
+import { BASE_URL } from '@consts';
 
 describe('fetchFPLData', () => {
   let mock: MockAdapter;

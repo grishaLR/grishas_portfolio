@@ -49,12 +49,15 @@
     "mongoose": "^8.5.1"
   },
   "scripts": {
-    "test": "npm run test:ui",
-    "test:server": "cd server && npm test",
-    "test:ui": "cd ui && npm test",
+    "test": "npm run test:ui && npm run test:server",
+    "test:server": "npm --prefix server run test",
+    "test:ui": "npm --prefix ui run test",
     "lint": "npm run lint:server && npm run lint:ui",
     "lint:server": "cd server && npm run lint",
     "lint:ui": "cd ui && npm run lint",
-    "build": "cd ui && npm run build"
+    "build": "npm run build:ui && npm run build:server",
+    "build:ui": "npm --prefix ui run build",
+    "build:server": "npm --prefix server run build",
+    "postinstall": "npm --prefix ui i && npm --prefix server i"
   }
 }

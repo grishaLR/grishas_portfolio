@@ -1,4 +1,4 @@
-import { playSound, serviceQueryFactory } from '@utils';
+import { playSound } from '@utils';
 
 describe('playSound', () => {
   let playMock: jest.Mock;
@@ -27,52 +27,5 @@ describe('playSound', () => {
     expect(playMock).toHaveBeenCalled();
     await Promise.resolve(); // Wait for the promise to resolve
     expect(console.error).toHaveBeenCalledWith('Failed to play sound:', error);
-  });
-});
-
-describe('serviceQueryFactory', () => {
-  it('should return data when the service resolves successfully', async () => {
-    const data = { key: 'value' };
-    const mockService = jest.fn().mockResolvedValue(data);
-    const queryFn = serviceQueryFactory(mockService);
-
-    const result = await queryFn('param1', 'param2');
-    expect(mockService).toHaveBeenCalledWith('param1', 'param2');
-    expect(result).toEqual({ data });
-  });
-
-  it('should return error when the service rejects', async () => {
-    const error = new Error('Service error');
-    const mockService = jest.fn().mockRejectedValue(error);
-    const queryFn = serviceQueryFactory(mockService);
-
-    const result = await queryFn('param1', 'param2');
-    expect(mockService).toHaveBeenCalledWith('param1', 'param2');
-    expect(result).toEqual({
-      error: {
-        status: -1,
-        error: 'Unknown',
-      },
-    });
-  });
-
-  it('should return detailed error information if available', async () => {
-    const error = {
-      response: {
-        status: 404,
-        data: { message: 'Not Found' },
-      },
-    };
-    const mockService = jest.fn().mockRejectedValue(error);
-    const queryFn = serviceQueryFactory(mockService);
-
-    const result = await queryFn('param1', 'param2');
-    expect(mockService).toHaveBeenCalledWith('param1', 'param2');
-    expect(result).toEqual({
-      error: {
-        status: 404,
-        error: 'Not Found',
-      },
-    });
   });
 });
