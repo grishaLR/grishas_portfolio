@@ -1,8 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/store/store';
-
-import { playSound } from '@utils';
 import './styles.css';
 
 export interface TypewriterProps {}
@@ -11,10 +9,6 @@ export default (() => {
   const currentText = useSelector((state: RootState) => state.typewriter.currentText);
   const delay = useSelector((state: RootState) => state.typewriter.delay);
   const [displayedText, setDisplayedText] = React.useState<string>('');
-
-  useEffect(() => {
-    playSound('https://www.soundjay.com/communication/sounds/typewriter-1.ogg');
-  }, []);
 
   useEffect(() => {
     let timeout: NodeJS.Timeout;

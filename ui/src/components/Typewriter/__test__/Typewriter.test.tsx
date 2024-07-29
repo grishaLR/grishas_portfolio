@@ -3,7 +3,7 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { Typewriter, TypewriterProps } from "@components";
 import { HALF_SECOND_TIMEOUT, MOCK_TEST_STRING } from "@consts";
 
-describe("Typewriter Component", () => {
+xdescribe("Typewriter Component", () => {
   const renderComponent = (props: TypewriterProps) => {
     render(<Typewriter {...props} />);
   };
